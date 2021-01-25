@@ -42,7 +42,11 @@ var controller = {
                 var commentForo = new foroModel();
                 commentForo.title = params.title;
                 commentForo.content = params.content;
-                commentForo.image = null;
+                if (params.image) {
+                    commentForo.image = params.image;
+                } else {
+                    commentForo.image = null;
+                }
 
                 // Guardar en base de datos
                 commentForo.save((err, commentStored) => {
@@ -256,20 +260,27 @@ var controller = {
 
             // Actualizar el articulo con la imagen
             var commentId = req.params.id;
-            foroModel.findOneAndUpdate({ _id: commentId }, { image: fileName }, { new: true }, (err, commentUpdated) => {
-                if (err || !commentUpdated) {
-                    return res.status(202).send({
-                        status: 'err',
-                        message: 'Error al guardar la imagen del articulo'
-                    });
-                }
+            if (commentId) {
+                foroModel.findOneAndUpdate({ _id: commentId }, { image: fileName }, { new: true }, (err, commentUpdated) => {
+                    if (err || !commentUpdated) {
+                        return res.status(202).send({
+                            status: 'err',
+                            message: 'Error al guardar la imagen del articulo'
+                        });
+                    }
 
+                    return res.status(200).send({
+                        status: 'success',
+                        commentUpdated
+                    });
+
+                });
+            } else {
                 return res.status(200).send({
                     status: 'success',
-                    commentUpdated
+                    image: fileName
                 });
-
-            });
+            }
         }
 
     },

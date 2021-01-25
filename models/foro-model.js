@@ -12,7 +12,7 @@ var foroSchema = schema({
     title: String,
     content: String,
     date: {
-        type: Date, default: Date.now()
+        type: Date, default: Date.now
     },
     image: String
 });

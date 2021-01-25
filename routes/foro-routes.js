@@ -24,7 +24,7 @@ router.get('/comments/:last?', foroController.getComments);
 router.get('/comment/:id', foroController.getComment);
 router.put('/comment/:id', foroController.update);
 router.delete('/comment/:id', foroController.delete);
-router.post('/upload-image/:id', upload, foroController.upload);
+router.post('/upload-image/:id?', upload, foroController.upload);
 router.get('/get-image/:img', upload, foroController.getImage);
 router.get('/search/:query', upload, foroController.search);
 
