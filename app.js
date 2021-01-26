@@ -9,6 +9,7 @@
 // Imports
 var express = require('express');
 var bodyParser = require('body-parser');
+const config = require('./config/config');
 
 // Ejecutar express (http)
 var app = express();
@@ -19,6 +20,8 @@ var foroRoutes = require('./routes/foro-routes');
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.set('secret_key', config.CLAVE_SECRETA);
 
 // CORS (permitir peticiones desde el frontend)
 app.use((req, res, next) => {

@@ -27,6 +27,8 @@ router.delete('/comment/:id', foroController.delete);
 router.post('/upload-image/:id?', upload, foroController.upload);
 router.get('/get-image/:img', upload, foroController.getImage);
 router.get('/search/:query', upload, foroController.search);
+router.post('/login', foroController.login);
+router.post('/register', foroController.register);
 
 // Se exporta el router
 module.exports = router;

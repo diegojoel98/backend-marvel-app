@@ -9,6 +9,9 @@ var foroModel = require('../models/foro-model');
 var validator = require('validator');
 var fs = require('fs');
 var path = require('path');
+var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var Usuario = require('../models/user-model');
 
 // Objeto foro-controlador con todos los métodos
 var controller = {
@@ -348,7 +351,83 @@ var controller = {
                 });
             })
 
-    }
+    },
+
+    login: (req, res) => {
+
+        let body = req.body;
+        Usuario.findOne({ email: body.email }, (err, usuarioDB) => {
+            if (err) {
+                return res.status(500).json({
+                    status: 'error',
+                    err: err
+                })
+            }
+
+            // Verifica que exista un usuario con el mail escrita por el usuario.
+            if (!usuarioDB) {
+                return res.status(400).json({
+                    status: 'error',
+                    err: {
+                        message: "Usuario o contraseña incorrectos"
+                    }
+                })
+            }
+
+            // Valida que la contraseña escrita por el usuario, sea la almacenada en la db
+            if (!bcrypt.compareSync(body.password, usuarioDB.password)) {
+                return res.status(400).json({
+                    status: 'error',
+                    err: {
+                        message: "Usuario o contraseña incorrectos"
+                    }
+                });
+            }
+
+            // Genera el token de autenticación
+            let token = jwt.sign({
+                usuario: usuarioDB,
+            }, process.env.SEED_AUTENTICACION, {
+                expiresIn: process.env.CADUCIDAD_TOKEN
+            })
+
+            res.json({
+                status: 'success',
+                usuario: usuarioDB,
+                token,
+            });
+
+        });
+
+    },
+
+    register: (req, res) => {
+        let body = req.body;
+
+        let { nombre, surname, email, password, role } = body;
+        let usuario = new Usuario({
+            nombre,
+            surname,
+            email,
+            password: bcrypt.hashSync(password, 10),
+            role
+        });
+
+        usuario.save((err, usuarioDB) => {
+            if (err) {
+                return res.status(400).json({
+                    status: 'error',
+                    err,
+                });
+            }
+
+            res.json({
+                status: 'success',
+                usuario: usuarioDB
+            });
+
+        });
+    },
 
 
 
