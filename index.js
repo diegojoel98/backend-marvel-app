@@ -19,7 +19,7 @@ mongoose.Promise = global.Promise;
 // Conexión a la base de datos
 mongoose.connect('mongodb://localhost:27017/api_foro', { useNewUrlParser: true })
     .then(() => {
-        console.log('La conexion a la base de datos se ha realizado correctamente');
+        console.log('\nLa conexion a la base de datos se ha realizado correctamente');
 
         // Crear servidor y escuchar peticiones http
         app.listen(port, () => {

@@ -11,6 +11,7 @@ const express = require('express');
 const foroController = require('../controllers/foro-controller');
 const multiparty = require('connect-multiparty');
 var upload = multiparty({ uploadDir: './upload/img-comment' });
+const secAuth = require('../middlewares/security-auth');
 
 // Se instancia el router de express
 const router = express.Router();
