@@ -7,15 +7,15 @@
 'use strict'
 
 // Imports
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
 const config = require('./config/config');
 
 // Ejecutar express (http)
-var app = express();
+const app = express();
 
 // Cargar ficheros rutas
-var foroRoutes = require('./routes/foro-routes');
+const foroRoutes = require('./routes/foro-routes');
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -5,13 +5,13 @@
  */
 
 // Imports
-var foroModel = require('../models/foro-model');
-var validator = require('validator');
-var fs = require('fs');
-var path = require('path');
-var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-var Usuario = require('../models/user-model');
+const foroModel = require('../models/foro-model');
+const validator = require('validator');
+const fs = require('fs');
+const path = require('path');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const Usuario = require('../models/user-model');
 
 // Objeto foro-controlador con todos los métodos
 var controller = {

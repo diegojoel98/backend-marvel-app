@@ -7,13 +7,13 @@
 'use strict'
 
 // Imports
-var express = require('express');
-var foroController = require('../controllers/foro-controller');
-var multiparty = require('connect-multiparty');
+const express = require('express');
+const foroController = require('../controllers/foro-controller');
+const multiparty = require('connect-multiparty');
 var upload = multiparty({ uploadDir: './upload/img-comment' });
 
 // Se instancia el router de express
-var router = express.Router();
+const router = express.Router();
 
 // Rutas
 router.get('/test', foroController.test);

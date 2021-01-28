@@ -5,8 +5,8 @@
 
 'use strict'
 
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 let rolesValidos = {
     values: ["ADMIN", "USER"],
