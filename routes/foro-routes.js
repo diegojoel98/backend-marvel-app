@@ -29,6 +29,7 @@ router.get('/get-image/:img', upload, foroController.getImage);
 router.get('/search/:query', upload, foroController.search);
 router.post('/login', foroController.login);
 router.post('/register', foroController.register);
+router.get('/token/:id', upload, foroController.getUser);
 
 // Se exporta el router
 module.exports = router;

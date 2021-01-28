@@ -307,7 +307,7 @@ var controller = {
             }*/
 
         fs.stat(filePath, function (err, stats) {
-            console.log(stats);//here we got all information of file in stats variable
+            //console.log(stats);//here we got all information of file in stats variable
             if (err) {
                 return res.status(404).send({
                     status: 'error',
@@ -427,6 +427,27 @@ var controller = {
             });
 
         });
+    },
+
+    getUser: (req, res) => {
+        let params = req.params;
+        //console.log('req.p.id: ' + req.params.id);
+        Usuario.findOne({ _id: params.id }, (err, usuarioDB) => {
+            if (err || !usuarioDB) {
+                return res.status(500).json({
+                    status: 'error',
+                    message: 'Hubo un error en la búsqueda o no existe un usuario con ese id y token'
+                });
+            }
+
+            res.status(200).send({
+                status: 'success',
+                usuarioDB
+            });
+            //console.log(usuarioDB);
+        });
+
+
     },
 
 
